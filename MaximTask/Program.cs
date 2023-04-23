@@ -11,13 +11,34 @@ namespace MaximTask
     {
         static void Main(string[] args)
         {
-            string input = Console.ReadLine();
-            Console.WriteLine(task1(input));
+            string input;
+            string notvalid;
+            while (true)
+            {
+
+                input = Console.ReadLine();
+                notvalid = task2(input);
+
+
+                if (notvalid.Length == 0)
+                {
+                    string result = task1(input);
+                    Console.WriteLine(result);
+                    task3(result);
+                }
+                else
+                {
+
+                    Console.WriteLine("Вы используете недопустимые символы: " + notvalid);
+
+                }
+            }
 
         }
 
         static string task1(string str)
         {
+
             if (str.Length % 2 == 0)
             {
                 string half1 = str.Substring(0, str.Length / 2);
@@ -32,7 +53,49 @@ namespace MaximTask
             string reversstr = new string(str.Reverse().ToArray());
 
             return reversstr + str;
-            
+
+
+
+        }
+
+        static string task2(string str)
+        {
+            string validsymbol = "abcdefghijklmnopqrstuvwxyz ";
+            string notvalidsymbol = "";
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (!validsymbol.Contains(str[i]))
+                {
+                    notvalidsymbol += str[i];
+
+
+                }
+
+            }
+
+            return notvalidsymbol;
+        }
+        static void task3(string str)
+        {
+            Dictionary<char, int> charCount = new Dictionary<char, int>();
+            foreach (char c in str)
+            {
+                if (charCount.ContainsKey(c))
+                {
+                    charCount[c]++;
+                }
+                else
+                {
+                    charCount.Add(c, 1);
+                }
+            }
+
+            Console.WriteLine("Количество повторений каждого символа в строке:");
+            foreach (KeyValuePair<char, int> kvp in charCount)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }
         }
     }
 }
