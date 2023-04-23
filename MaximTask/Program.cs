@@ -22,7 +22,9 @@ namespace MaximTask
 
                 if (notvalid.Length == 0)
                 {
-                    Console.WriteLine(task1(input));
+                    string result = task1(input);
+                    Console.WriteLine(result);
+                    task3(result);
                 }
                 else
                 {
@@ -36,10 +38,11 @@ namespace MaximTask
 
         static string task1(string str)
         {
+
             if (str.Length % 2 == 0)
             {
-                string half1 = str.Substring(0, str.Length /2);
-                string life2 = str.Substring(str.Length /2);
+                string half1 = str.Substring(0, str.Length / 2);
+                string life2 = str.Substring(str.Length / 2);
 
                 half1 = new string(half1.Reverse().ToArray());
                 life2 = new string(life2.Reverse().ToArray());
@@ -50,7 +53,28 @@ namespace MaximTask
             string reversstr = new string(str.Reverse().ToArray());
 
             return reversstr + str;
-            
+
+
+
+        }
+
+        static string task2(string str)
+        {
+            string validsymbol = "abcdefghijklmnopqrstuvwxyz ";
+            string notvalidsymbol = "";
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (!validsymbol.Contains(str[i]))
+                {
+                    notvalidsymbol += str[i];
+
+
+                }
+
+            }
+
+            return notvalidsymbol;
         }
         static void task3(string str)
         {
@@ -73,4 +97,5 @@ namespace MaximTask
                 Console.WriteLine($"{kvp.Key}: {kvp.Value}");
             }
         }
-}   }
+    }
+}
