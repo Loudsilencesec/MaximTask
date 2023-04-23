@@ -11,8 +11,26 @@ namespace MaximTask
     {
         static void Main(string[] args)
         {
-            string input = Console.ReadLine();
-            Console.WriteLine(task1(input));
+            string input;
+            string notvalid;
+            while (true)
+            {
+
+                input = Console.ReadLine();
+                notvalid = task2(input);
+
+
+                if (notvalid.Length == 0)
+                {
+                    Console.WriteLine(task1(input));
+                }
+                else
+                {
+
+                    Console.WriteLine("Вы используете недопустимые символы: " + notvalid);
+
+                }
+            }
 
         }
 
@@ -34,5 +52,25 @@ namespace MaximTask
             return reversstr + str;
             
         }
-    }
-}
+        static void task3(string str)
+        {
+            Dictionary<char, int> charCount = new Dictionary<char, int>();
+            foreach (char c in str)
+            {
+                if (charCount.ContainsKey(c))
+                {
+                    charCount[c]++;
+                }
+                else
+                {
+                    charCount.Add(c, 1);
+                }
+            }
+
+            Console.WriteLine("Количество повторений каждого символа в строке:");
+            foreach (KeyValuePair<char, int> kvp in charCount)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }
+        }
+}   }
