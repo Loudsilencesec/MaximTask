@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,8 +25,27 @@ namespace MaximTask
                     string result = task1(input);
                     Console.WriteLine(result);
                     task3(result);
+
+
                     string processedInput = task1(input);
                     Console.WriteLine(task4(result));
+                    string sortstr;
+                    Console.WriteLine("Выберите сортировку \n 1. Быстрая \n 2. Деревом ");
+                    switch (Console.ReadLine())
+                    {
+                        case "1":
+                            sortstr = QuickSort(result);
+                            break;
+                        case "2":
+                            sortstr = TreeSort(result);
+                            break;
+                        default:
+                            sortstr = "Сортировка не указана";
+                            break;
+                    }
+
+                    Console.WriteLine(sortstr);
+
                 }
                 else
                 {
@@ -34,6 +53,7 @@ namespace MaximTask
                     Console.WriteLine("Вы используете недопустимые символы: " + notvalid);
 
                 }
+                
             }
 
         }
@@ -100,6 +120,8 @@ namespace MaximTask
             }
         }
 
+
+
         static string task4(string str)
         {
             string vowels = "aeiouy";
@@ -128,5 +150,112 @@ namespace MaximTask
             return maxSubstr;
         }
 
+        static string QuickSort(string str)
+        {
+            if (str.Length <= 1)
+            {
+                return str;
+            }
+
+            char pivot = str[str.Length / 2];
+            string left = "";
+            string middle = "";
+            string right = "";
+
+            foreach (char c in str)
+            {
+                if (c < pivot)
+                {
+                    left += c;
+                }
+                else if (c == pivot)
+                {
+                    middle += c;
+                }
+                else
+                {
+                    right += c;
+                }
+            }
+
+            return QuickSort(left) + middle + QuickSort(right);
+        }
+
+        class TreeNode
+        {
+            public char Value;
+            public TreeNode Left;
+            public TreeNode Right;
+
+            public TreeNode(char value)
+            {
+                Value = value;
+            }
+
+            public void Insert(char value)
+            {
+                if (value < Value)
+                {
+                    if (Left == null)
+                    {
+                        Left = new TreeNode(value);
+                    }
+                    else
+                    {
+                        Left.Insert(value);
+                    }
+                }
+                else
+                {
+                    if (Right == null)
+                    {
+                        Right = new TreeNode(value);
+                    }
+                    else
+                    {
+                        Right.Insert(value);
+                    }
+                }
+            }
+
+            public void Traverse(StringBuilder sb)
+            {
+                if (Left != null)
+                {
+                    Left.Traverse(sb);
+                }
+
+                sb.Append(Value);
+
+                if (Right != null)
+                {
+                    Right.Traverse(sb);
+                }
+            }
+        }
+
+        static string TreeSort(string str)
+        {
+            if (str.Length <= 1)
+            {
+                return str;
+            }
+
+            TreeNode root = new TreeNode(str[0]);
+            for (int i = 1; i < str.Length; i++)
+            {
+                root.Insert(str[i]);
+            }
+
+            StringBuilder sb = new StringBuilder();
+            root.Traverse(sb);
+
+            return sb.ToString();
+        }
+
+
+
     }
+
+
 }
