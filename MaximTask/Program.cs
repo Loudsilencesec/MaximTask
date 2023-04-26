@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,7 +53,7 @@ namespace MaximTask
                     Console.WriteLine("Вы используете недопустимые символы: " + notvalid);
 
                 }
-
+                
             }
 
         }
