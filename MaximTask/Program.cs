@@ -25,6 +25,8 @@ namespace MaximTask
                     string result = task1(input);
                     Console.WriteLine(result);
                     task3(result);
+                    string processedInput = task1(input);
+                    Console.WriteLine(task4(result));
                 }
                 else
                 {
@@ -97,5 +99,34 @@ namespace MaximTask
                 Console.WriteLine($"{kvp.Key}: {kvp.Value}");
             }
         }
+
+        static string task4(string str)
+        {
+            string vowels = "aeiouy";
+            string maxSubstr = "";
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (vowels.Contains(str[i]))
+                {
+                    for (int j = str.Length - 1; j > i; j--)
+                    {
+                        if (vowels.Contains(str[j]))
+                        {
+                            string substr = str.Substring(i, j - i + 1);
+                            if (substr.Length > maxSubstr.Length)
+                            {
+                                maxSubstr = substr;
+                            }
+                            i = j;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return maxSubstr;
+        }
+
     }
 }
