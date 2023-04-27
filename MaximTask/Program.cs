@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -267,7 +267,7 @@ namespace MaximTask
             {
                 WebClient client = new WebClient();
                 string url = "http://www.randomnumberapi.com/api/v1.0/randomnumber?max=" + strLength;
-                string response = client.DownloadString(url);
+                string response = client.DownloadString(url); 
                 randomNumber = int.Parse(response.Trim('[', ']'));
             }
             catch (WebException ex)
