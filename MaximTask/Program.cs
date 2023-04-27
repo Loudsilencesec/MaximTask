@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -30,7 +31,10 @@ namespace MaximTask
                     string processedInput = task1(input);
                     Console.WriteLine(task4(result));
                     string sortstr;
+                    Console.WriteLine(task6(result));
                     Console.WriteLine("Выберите сортировку \n 1. Быстрая \n 2. Деревом ");
+
+
                     switch (Console.ReadLine())
                     {
                         case "1":
@@ -53,7 +57,7 @@ namespace MaximTask
                     Console.WriteLine("Вы используете недопустимые символы: " + notvalid);
 
                 }
-                
+
             }
 
         }
@@ -253,9 +257,29 @@ namespace MaximTask
             return sb.ToString();
         }
 
+        static string task6(string inputString)
+        {
 
+            int randomNumber;
+            int strLength = inputString.Length - 1;
 
+            try
+            {
+                WebClient client = new WebClient();
+                string url = "http://www.randomnumberapi.com/api/v1.0/randomnumber?max=" + strLength;
+                string response = client.DownloadString(url); 
+                randomNumber = int.Parse(response.Trim('[', ']'));
+            }
+            catch (WebException ex)
+            {
+                Console.WriteLine("Произошла ошибка при получении числа с API! Генерирую число локально");
+                Random random = new Random();
+                randomNumber = random.Next(strLength);
+            }
+
+            Console.WriteLine("случайное число - " + (randomNumber + 1));
+
+            return inputString.Remove(randomNumber, 1);
+        }
     }
-
-
 }
